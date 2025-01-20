@@ -1,5 +1,5 @@
 import express from "express";
-import { fetchAll } from "../controllers/WalletController.js";
+import { fetch, fetchAll } from "../controllers/WalletController.js";
 
 const router = express.Router();
 
@@ -9,5 +9,12 @@ const router = express.Router();
 @method:get
 */
 router.get("/", fetchAll);
+
+/*
+@name: fetch a wallets
+@route/endpoint: wallets/:id
+@method:get
+*/
+router.get("/:id", fetch);
 
 export default router;
