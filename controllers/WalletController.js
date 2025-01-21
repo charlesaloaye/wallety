@@ -134,7 +134,7 @@ export const sendMoney = (req, res) => {
                   );
                 } else {
                   res
-                    .status(401)
+                    .status(404)
                     .json({ message: "No receiver with that email found" });
                 }
               }
