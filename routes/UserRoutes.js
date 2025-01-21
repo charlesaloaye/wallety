@@ -4,7 +4,7 @@ import {
   LoginUser,
   fetchAll,
   fetch,
-} from "../controllers/UsersController.js";
+} from "../controllers/UserController.js";
 
 const router = express.Router();
 

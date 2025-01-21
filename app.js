@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import UsersRoutes from "./routes/UsersRoutes.js";
-import WalletsRoutes from "./routes/WalletsRoutes.js";
+import UsersRoutes from "./routes/UserRoutes.js";
+import WalletsRoutes from "./routes/WalletRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

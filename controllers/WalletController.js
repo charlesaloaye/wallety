@@ -44,7 +44,7 @@ LEFT JOIN
     wallets ON wallets.user_id = users.id
 LEFT JOIN 
     wallet_types ON wallet_types.id = wallets.type_id 
-    WHERE wallets.id = ?  OR users.id = ?
+    WHERE wallets.id = ?
     LIMIT 100`,
       [id, id],
       (err, wallets) => {
@@ -90,7 +90,7 @@ export const sendMoney = (req, res) => {
     }
 
     db.query(
-      `SELECT users.email, users.id, wallets.balance, wallets.type_id, wallet_types.minimum_balance FROM users LEFT JOIN wallets ON wallets.user_id = users.id LEFT JOIN wallet_types ON wallet_types.id = wallets.type_id WHERE users.email = ? AND wallet_types.name = ?`,
+      `SELECT users.email, users.id, wallets.balance, wallets.type_id, wallet_types.minimum_balance, wallet_types.name AS wallet FROM users LEFT JOIN wallets ON wallets.user_id = users.id LEFT JOIN wallet_types ON wallet_types.id = wallets.type_id WHERE users.email = ? AND wallet_types.name = ?`,
       [sender_email, wallet],
       (err, sender) => {
         const _sender = sender[0];
@@ -125,9 +125,15 @@ export const sendMoney = (req, res) => {
                         (err) => {
                           if (err) throw err;
 
-                          res
-                            .status(200)
-                            .json({ message: "Transaction successfully" });
+                          res.status(200).json({
+                            message: "Transaction successfull",
+                            data: {
+                              senderId: _sender.id,
+                              receiverId: _receiver.receiver_id,
+                              amount: amount,
+                              currency: _sender.wallet,
+                            },
+                          });
                         }
                       );
                     }

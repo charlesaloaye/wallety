@@ -1,6 +1,6 @@
 # Wallety
 
-Wallety is an Express.js-based financial management application. 
+Wallety is an Express.js-based financial management application.
 It provides a robust backend for handling wallets, users, and transactions efficiently.
 
 ## Features
@@ -16,69 +16,79 @@ It provides a robust backend for handling wallets, users, and transactions effic
 ### Wallet Endpoints
 
 #### **`GET /wallets`**
+
 - **Description**: Retrieves a list of all wallets.
 - **Response**:
   - **Status Code**: `200 OK`
   - **Example Response**:
-    ```json
+  ```json
   {
     "message": "wallet found",
     "wallets": [
-        {
-            "id": 1,
-            "user_id": 2,
-            "type_id": 1,
-            "name": "Dollar",
-            "balance": 4998000,
-            "created_at": "2025-01-20T16:47:39.000Z"
-        },
-        {
-            "id": 2,
-            "user_id": 1,
-            "type_id": 1,
-            "name": "USD",
-            "balance": 3100,
-            "created_at": "2025-01-21T09:56:26.000Z"
-        }
+      {
+        "id": 1,
+        "user_id": 2,
+        "type_id": 1,
+        "name": "USD",
+        "balance": 4998000,
+        "created_at": "2025-01-20T16:47:39.000Z"
+      },
+      {
+        "id": 2,
+        "user_id": 1,
+        "type_id": 1,
+        "name": "USD",
+        "balance": 3100,
+        "created_at": "2025-01-21T09:56:26.000Z"
+      }
     ]
-}
-    ```
+  }
+  ```
 
 #### **`POST /wallets/send`**
+
 - **Description**: Processes a transaction to send funds from one wallet to another.
 - **Request Body**:
   ```json
   {
-    "senderWalletId": "1",
-    "receiverWalletId": "2",
-    "amount": 100.0,
-    "currency": "USD"
+    "message": "Transaction successfull",
+    "data": {
+      "sender_email": "charlestechy01@gmail.com",
+      "receiver_email": "charlestechy0@gmail.com",
+      "amount": "500",
+      "wallet": "USD"
+    }
   }
   ```
 - **Response**:
+
   - **Status Code**:
     - `200 OK` if successful
     - `400 Bad Request` if there is insufficient balance or invalid input
   - **Example Responses**:
     - **Success**:
-      ```json
-      {
-        "message": "Transaction successful",
-        "transactionId": "txn123",
-        "senderWalletId": "1",
-        "receiverWalletId": "2",
-        "amount": 100.0,
-        "currency": "USD"
-      }
-      ```
-    - **Failure**:
-      ```json
-     {
-    "message": "Insufficient funds"
-}
-      ```
+
+  ```json
+  {
+    "message": "Transaction successfull",
+    "data": {
+      "senderId": 2,
+      "receiverId": 1,
+      "amount": "500",
+      "currency": "USD"
+    }
+  }
+  ```
+
+  - **Failure**:
+    ```json
+    {
+      "message": "Insufficient balance"
+    }
+    ```
 
 #### **`GET /wallets/:id`**
+
 - **Description**: Retrieves details of a specific wallet by its ID.
 - **Response**:
   - **Status Code**:
@@ -86,50 +96,62 @@ It provides a robust backend for handling wallets, users, and transactions effic
     - `404 Not Found` if the wallet does not exist
   - **Example Responses**:
     - **Success**:
-      ```json
-      {
-        "id": "1",
-        "userId": "123",
-        "balance": 500.0,
-        "currency": "USD",
-        "createdAt": "2025-01-15T10:00:00Z",
-        "updatedAt": "2025-01-20T15:30:00Z"
-      }
-      ```
-    - **Failure**:
-      ```json
-      {
-        "error": "Wallet not found"
-      }
-      ```
 
----
+```json
+{
+  "message": "wallet found",
+  "wallets": [
+    {
+      "full_name": "Charles Techy",
+      "email": "charlestechy01@gmail.com",
+      "wallet_id": 1,
+      "available_balance": 4996000,
+      "wallet_type_id": 1,
+      "wallet_user_id": 2,
+      "wallet_type": "USD"
+    }
+  ]
+}
+```
+
+- **Failure**:
+  ```json
+  {
+    "message": "No wallet found"
+  }
+  ```
 
 ### User Endpoints
 
 #### **`GET /users`**
+
 - **Description**: Retrieves a list of all registered users.
 - **Response**:
   - **Status Code**: `200 OK`
   - **Example Response**:
-    ```json
-    [
-      {
-        "id": "123",
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "createdAt": "2025-01-10T09:00:00Z"
-      },
-      {
-        "id": "456",
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "createdAt": "2025-01-12T12:30:00Z"
-      }
-    ]
-    ```
+
+```json
+{
+  "message": "retrieved",
+  "users": [
+    {
+      "id": 1,
+      "name": "Charles Aloaye",
+      "email": "charlestechy0@gmail.com",
+      "created_at": "2025-01-20T15:15:57.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Charles Techy",
+      "email": "charlestechy01@gmail.com",
+      "created_at": "2025-01-20T16:18:10.000Z"
+    }
+  ]
+}
+```
 
 #### **`GET /users/:email`**
+
 - **Description**: Retrieves a specific user by their email address.
 - **Response**:
   - **Status Code**:
@@ -137,35 +159,49 @@ It provides a robust backend for handling wallets, users, and transactions effic
     - `404 Not Found` if the user does not exist
   - **Example Responses**:
     - **Success**:
-      ```json
-      {
-        "id": "123",
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "createdAt": "2025-01-10T09:00:00Z"
-      }
-      ```
-    - **Failure**:
-      ```json
-      {
-        "error": "User not found"
-      }
-      ```
+
+```json
+{
+  "message": "retrieved",
+  "users": [
+    {
+      "id": 1,
+      "name": "Charles Aloaye",
+      "email": "charlestechy0@gmail.com",
+      "created_at": "2025-01-20T15:15:57.000Z"
+    }
+  ]
+}
+```
+
+- **Failure**:
+
+```json
+{
+  "message": "User Not found"
+}
+```
 
 #### **`POST /users/register`**
+
 - **Description**: Registers a new user.
 - **Request Body**:
+
   ```json
   {
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "password": "securepassword"
+    "message": "Account created successfully, please login",
+    "data": {
+      "name": "Ade Tobi",
+      "email": "charlestechy@gmail.com",
+      "password": "$2b$10$XZfNbppLnjC6fgkBnEBccOHdAkdy04yNa01jJdKYBDUwINrUoR9qa"
+    }
   }
   ```
+
 - **Response**:
   - **Status Code**:
-    - `201 Created` if registration is successful
-    - `400 Bad Request` if validation fails (e.g., email already exists)
+    - `200 Created` if registration is successful
+    - `401 Bad Request` if validation fails (e.g., email already exists)
   - **Example Responses**:
     - **Success**:
       ```json
@@ -175,13 +211,15 @@ It provides a robust backend for handling wallets, users, and transactions effic
       }
       ```
     - **Failure**:
-      ```json
-      {
-        "error": "Email already exists"
-      }
-      ```
+
+```json
+{
+  "message": "Account already exist, please try another email"
+}
+```
 
 #### **`POST /users/login`**
+
 - **Description**: Authenticates a user and returns a token for secure access.
 - **Request Body**:
   ```json
@@ -198,14 +236,14 @@ It provides a robust backend for handling wallets, users, and transactions effic
     - **Success**:
       ```json
       {
-        "message": "Login successful",
+        "message": "Login successfully",
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
       }
       ```
     - **Failure**:
       ```json
       {
-        "error": "Invalid email or password"
+        "message": "Incorrect account password"
       }
       ```
 
@@ -238,3 +276,7 @@ Contributions are welcome! To contribute:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+```
+
+```

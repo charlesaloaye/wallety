@@ -40,6 +40,11 @@ export const createUser = async (req, res) => {
             if (result) {
               res.status(200).json({
                 message: "Account created successfully, please login",
+                data: {
+                  name: name,
+                  email: email,
+                  password: securedPassword,
+                },
               });
               return;
             }
@@ -70,7 +75,7 @@ export const LoginUser = async (req, res) => {
         }
 
         if (!users.length) {
-          res.status(404).json({
+          res.status(401).json({
             message: "Account does not exist, please try create an account",
           });
           return;
@@ -108,17 +113,20 @@ export const LoginUser = async (req, res) => {
 // Fetch All Users
 export const fetchAll = async (req, res) => {
   try {
-    db.query("SELECT * FROM users", async (err, users) => {
-      if (!users.length) {
-        res.status(404).json({ message: "Not found" });
-        return;
-      }
+    db.query(
+      "SELECT email, id, name, created_at FROM users",
+      async (err, users) => {
+        if (!users.length) {
+          res.status(404).json({ message: "Not found" });
+          return;
+        }
 
-      if (users.length) {
-        res.status(200).json({ message: "retrieved", users });
-        return;
+        if (users.length) {
+          res.status(200).json({ message: "retrieved", users });
+          return;
+        }
       }
-    });
+    );
   } catch (err) {
     if (err) {
       res
@@ -129,7 +137,7 @@ export const fetchAll = async (req, res) => {
   }
 };
 
-// Fetch a single user
+// Fetch a single user by email
 export const fetch = async (req, res) => {
   const { email } = req.params;
 
@@ -139,15 +147,19 @@ export const fetch = async (req, res) => {
       return;
     }
 
-    db.query("SELECT * FROM users WHERE email = ? ", [email], (err, users) => {
-      if (!users.length) {
-        res.status(404).json({ message: "User Not found" });
+    db.query(
+      "SELECT email, id, name, created_at FROM users WHERE email = ? ",
+      [email],
+      (err, users) => {
+        if (!users.length) {
+          res.status(404).json({ message: "User Not found" });
+          return;
+        }
+
+        res.status(200).json({ message: "retrieved", users });
         return;
       }
-
-      res.status(200).json({ message: "retrieved", users });
-      return;
-    });
+    );
   } catch (err) {
     res
       .status(500)
