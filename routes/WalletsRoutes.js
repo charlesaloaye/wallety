@@ -5,21 +5,21 @@ const router = express.Router();
 
 /*
 @name: fetch all wallets
-@route/endpoint: wallets/
+@route: wallets/
 @method:get
 */
 router.get("/", fetchAll);
 
 /*
 @name: send money to wallet
-@route/endpoint: wallets/send
+@route: wallets/send
 @method:post
 */
 router.post("/send", sendMoney);
 
 /*
 @name: fetch a wallets
-@route/endpoint: wallets/:id
+@route: wallets/:id
 @method:get
 */
 router.get("/:id", fetch);

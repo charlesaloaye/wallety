@@ -10,25 +10,25 @@ const router = express.Router();
 
 /*
 @name: fetch all users
-@route/endpoint: users/
+@route: users/
 @method:get
 */
 router.get("/", fetchAll);
 /*
 @name: fetch a user
-@route/endpoint: users/:email
+@route: users/:email
 @method:get
 */
 router.get("/:email", fetch);
 /*
 @name: create User
-@route/endpoint: users/register
+@route: users/register
 @method:post
 */
 router.post("/register", createUser);
 /*
 @name: login User
-@route/endpoint: users/login
+@route: users/login
 @method:post
 */
 router.post("/login", LoginUser);
