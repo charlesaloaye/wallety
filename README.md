@@ -11,6 +11,14 @@ It provides a robust backend for handling wallets, users, and transactions effic
 
 ---
 
+## INSTALLATION
+
+- Clone the repository: git clone https://github.com/charlesaloaye/wallety.git
+- Navigate to the project directory: cd wallety or drag and drop inside vscode
+- Install the dependencies: npm i or npm install; to install all dependecies
+
+---
+
 ## env SET UP
 
 - Create an .env file and add the following
@@ -20,6 +28,16 @@ It provides a robust backend for handling wallets, users, and transactions effic
 - DB_NAME
 - PORT
 - AUTH_SECRET_KEY
+
+---
+
+## USAGE
+
+- Open your terminal `ctrl + shift ~ ` or `cmd + shift !`
+- Type npm run server and press enter
+- After that open your rest API client e.g Postman and follow the API doc
+
+---
 
 ## API Documentation
 
@@ -265,7 +283,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
 wallety/
 ├── controllers/       # Application logic and data handling
 ├── routes/            # API endpoint definitions
-├── library/           # Utility modules
+├── lib/               # Utility modules
 ├── node_modules/      # Project dependencies
 ├── .env               # Environment variables (not included in the repo)
 ├── package.json       # Project metadata and scripts
