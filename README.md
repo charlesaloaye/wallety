@@ -11,6 +11,16 @@ It provides a robust backend for handling wallets, users, and transactions effic
 
 ---
 
+## env SET UP
+
+- Create an .env file and add the following
+- DB_HOST
+- DB_USER
+- DB_PASSWORD
+- DB_NAME
+- PORT
+- AUTH_SECRET_KEY
+
 ## API Documentation
 
 ### Wallet Endpoints
@@ -53,8 +63,8 @@ It provides a robust backend for handling wallets, users, and transactions effic
   {
     "message": "Transaction successfull",
     "data": {
-      "sender_email": "charlestechy01@gmail.com",
-      "receiver_email": "charlestechy0@gmail.com",
+      "sender_email": "test1@gmail.com",
+      "receiver_email": "test2@gmail.com",
       "amount": "500",
       "wallet": "USD"
     }
@@ -103,7 +113,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
   "wallets": [
     {
       "full_name": "Charles Techy",
-      "email": "charlestechy01@gmail.com",
+      "email": "test1@gmail.com",
       "wallet_id": 1,
       "available_balance": 4996000,
       "wallet_type_id": 1,
@@ -137,13 +147,13 @@ It provides a robust backend for handling wallets, users, and transactions effic
     {
       "id": 1,
       "name": "Charles Aloaye",
-      "email": "charlestechy0@gmail.com",
+      "email": "test1@gmail.com",
       "created_at": "2025-01-20T15:15:57.000Z"
     },
     {
       "id": 2,
       "name": "Charles Techy",
-      "email": "charlestechy01@gmail.com",
+      "email": "test2@gmail.com",
       "created_at": "2025-01-20T16:18:10.000Z"
     }
   ]
@@ -167,7 +177,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
     {
       "id": 1,
       "name": "Charles Aloaye",
-      "email": "charlestechy0@gmail.com",
+      "email": "test1@gmail.com",
       "created_at": "2025-01-20T15:15:57.000Z"
     }
   ]
@@ -192,7 +202,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
     "message": "Account created successfully, please login",
     "data": {
       "name": "Ade Tobi",
-      "email": "charlestechy@gmail.com",
+      "email": "test3@gmail.com",
       "password": "$2b$10$XZfNbppLnjC6fgkBnEBccOHdAkdy04yNa01jJdKYBDUwINrUoR9qa"
     }
   }
@@ -224,7 +234,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
 - **Request Body**:
   ```json
   {
-    "email": "john.doe@example.com",
+    "email": "test3@gmail.com",
     "password": "securepassword"
   }
   ```
@@ -275,7 +285,7 @@ Contributions are welcome! To contribute:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ```
 
