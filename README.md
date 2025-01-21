@@ -33,7 +33,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
 
 ## USAGE
 
-- Open your terminal `ctrl + shift ~ ` or `cmd + shift !`
+- Open your terminal `ctrl + shift ~ ` or `cmd + shift ~`
 - Type npm run server and press enter
 - After that open your rest API client e.g Postman and follow the API doc
 
