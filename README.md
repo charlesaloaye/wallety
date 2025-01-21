@@ -21,7 +21,7 @@ It provides a robust backend for handling wallets, users, and transactions effic
 
 ## env SET UP
 
-- Create an .env file and add the following
+ Create an .env file and add the following
 - DB_HOST
 - DB_USER
 - DB_PASSWORD
