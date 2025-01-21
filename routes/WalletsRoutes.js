@@ -1,5 +1,5 @@
 import express from "express";
-import { fetch, fetchAll } from "../controllers/WalletController.js";
+import { fetch, fetchAll, sendMoney } from "../controllers/WalletController.js";
 
 const router = express.Router();
 
@@ -9,6 +9,13 @@ const router = express.Router();
 @method:get
 */
 router.get("/", fetchAll);
+
+/*
+@name: send money to wallet
+@route/endpoint: wallets/send
+@method:post
+*/
+router.post("/send", sendMoney);
 
 /*
 @name: fetch a wallets

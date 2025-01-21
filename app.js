@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import UsersRoutes from "./routes/UsersRoutes.js";
@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// routes
 app.use("/users", UsersRoutes);
 app.use("/wallets", WalletsRoutes);
 

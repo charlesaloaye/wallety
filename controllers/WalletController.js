@@ -64,3 +64,95 @@ LEFT JOIN
     return;
   }
 };
+
+export const sendMoney = (req, res) => {
+  const { sender_email, receiver_email, amount, wallet } = req.body;
+
+  try {
+    if (!sender_email || !validator.isEmail(sender_email)) {
+      res.status(401).json({ message: "Invalid sender email" });
+      return;
+    }
+
+    if (!receiver_email || !validator.isEmail(receiver_email)) {
+      res.status(401).json({ message: "Invalid receiver email" });
+      return;
+    }
+
+    if (!amount || !validator.isNumeric(amount)) {
+      res.status(401).json({ message: "Invalid amount" });
+      return;
+    }
+
+    if (!wallet || !validator.isAlpha(wallet)) {
+      res.status(401).json({ message: "Invalid wallet to credit" });
+      return;
+    }
+
+    db.query(
+      `SELECT users.email, users.id, wallets.balance, wallets.type_id, wallet_types.minimum_balance FROM users LEFT JOIN wallets ON wallets.user_id = users.id LEFT JOIN wallet_types ON wallet_types.id = wallets.type_id WHERE users.email = ? AND wallet_types.name = ?`,
+      [sender_email, wallet],
+      (err, sender) => {
+        const _sender = sender[0];
+
+        if (_sender.balance > _sender.minimum_balance) {
+          if (_sender.balance > amount) {
+            db.query(
+              `SELECT users.email, users.id AS receiver_id, wallets.balance, wallets.type_id FROM users LEFT JOIN wallets ON wallets.user_id = users.id LEFT JOIN  wallet_types ON wallet_types.id = wallets.id WHERE users.email = ? `,
+              [receiver_email],
+              (err, receiver) => {
+                const _receiver = receiver[0];
+                if (!err) {
+                  const receiver_balance =
+                    parseFloat(_receiver.balance) + parseFloat(amount);
+
+                  const sender_balance =
+                    parseFloat(_sender.balance) - parseFloat(amount);
+
+                  db.query(
+                    "UPDATE wallets SET balance = ? WHERE user_id = ? AND type_id = ?",
+                    [
+                      receiver_balance,
+                      _receiver.receiver_id,
+                      _receiver.type_id,
+                    ],
+                    (err) => {
+                      if (err) throw err;
+
+                      db.query(
+                        "UPDATE wallets SET balance = ? WHERE user_id = ? AND type_id = ?",
+                        [sender_balance, _sender.id, _sender.type_id],
+                        (err) => {
+                          if (err) throw err;
+
+                          res
+                            .status(200)
+                            .json({ message: "Money Sent successfully" });
+                        }
+                      );
+                    }
+                  );
+                } else {
+                  res
+                    .status(401)
+                    .json({ message: "No receiver with that email found" });
+                }
+              }
+            );
+          } else {
+            res.status(401).json({ message: "Insufficient funds" });
+            return;
+          }
+        } else {
+          res.status(401).json({
+            message: `Balance must be atleast ${_sender.minimum_balance} to perform this operation`,
+          });
+          return;
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
+};
