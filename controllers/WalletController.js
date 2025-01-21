@@ -127,7 +127,7 @@ export const sendMoney = (req, res) => {
 
                           res
                             .status(200)
-                            .json({ message: "Money Sent successfully" });
+                            .json({ message: "Transaction successfully" });
                         }
                       );
                     }
@@ -140,7 +140,7 @@ export const sendMoney = (req, res) => {
               }
             );
           } else {
-            res.status(401).json({ message: "Insufficient funds" });
+            res.status(400).json({ message: "Insufficient funds" });
             return;
           }
         } else {
