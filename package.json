@@ -10,7 +10,7 @@
     "validator": "^13.12.0"
   },
   "scripts": {
-    "server": "nodemon --env-file=.env app.js"
+    "start": "node app.js"
   },
   "type": "module"
 }
